@@ -2,6 +2,7 @@ EmergingProcesses
 =================
 
 Class lectures and example code for Emerging Processes in Video Art ITP Spring 2013 
+http://www.jamesgeorge.org/emergingprocesses/
 
 How to install
 # first install git http://code.google.com/p/git-osx-installer/
