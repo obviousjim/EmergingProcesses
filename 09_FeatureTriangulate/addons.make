@@ -1,0 +1,5 @@
+ofxOpenCv
+ofxXmlSettings
+ofxControlPanel
+ofxCv
+ofxDelaunay
