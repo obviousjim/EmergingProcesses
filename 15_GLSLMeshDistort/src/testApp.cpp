@@ -73,7 +73,9 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+	if(key == 'R'){
+		extrudeShader.load("meshExtrude");
+	}
 }
 
 //--------------------------------------------------------------

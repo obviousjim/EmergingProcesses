@@ -20,8 +20,6 @@ void testApp::setup(){
 	//now load the black and white image to become the mask
 	//this must match the size of grabber, 640x480 in this case
 	mask.loadImage("stripes.png");
-	
-
 }
 
 //--------------------------------------------------------------
