@@ -4,7 +4,7 @@
 void testApp::setup(){
 
 	//loads the shader
-	shader.load("mouseHalo");
+	shader.load("emptyShader");
 }
 
 //--------------------------------------------------------------
@@ -18,20 +18,27 @@ void testApp::draw(){
 	//begining a shader is like beginning an FBO. All drawing that takes place goes through the shader until end()
 	shader.begin();
 	
-	//modulate a circle radius between 20 and 200
-	shader.setUniform1f("radius", ofMap( sin(ofGetElapsedTimef()*2),-1,1, 20, 200 ));
-	//centered at the mouse
-	shader.setUniform2f("mousePosition", mouseX, mouseY);
-					
-	//draw a full screen mesh
-	ofMesh m;
-	m.addVertex(ofVec2f(0,0));
-	m.addVertex(ofVec2f(0,ofGetHeight()));
-	m.addVertex(ofVec2f(ofGetWidth(),0));
-	m.addVertex(ofVec2f(ofGetWidth(),ofGetHeight()));
-	m.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-	m.draw();
-		
+	//you could set some uniforms once the shader has begun
+	//for example, an image: load this and then pass to the shader like so
+	ofImage someImage;
+	shader.setUniformTexture("image", someImage, 0);
+
+	//you can pass just normal variables as floats
+	float someValueForTheShader = 3.0;
+	shader.setUniform1f("singleValue", someValueForTheShader);
+	
+	//or 2 or 3 dimensional positions in space
+	ofVec2f somePositionOnTheScreen = ofVec2f(mouseX, mouseY);
+	shader.setUniform2f("singleValue", somePositionOnTheScreen.x,somePositionOnTheScreen.y);
+	
+	//or even colors, which are just treated like vectors
+	//shaders always want colors to be floats between 0 to 1.0
+	ofFloatColor color = ofColor(1.0, 0.0, 0.0);
+	shader.setUniform3f("someColor", color.r, color.b, color.g);
+	
+	//now draw something!
+	// ....
+	
 	//and put things back to normal
 	shader.end();
 }
@@ -40,9 +47,9 @@ void testApp::draw(){
 void testApp::keyPressed(int key){
 
 	//convenient shortcut to reload the shader in real time by hitting SHIFT+R
-	//this lets you edit the vertex and fragment files without having to recompile
+	//this lets you edit the vertex and fragment files without having to recompiile
 	if(key == 'R'){
-		shader.load("mouseHalo");
+		shader.load("emptyShader");
 	}
 }
 
