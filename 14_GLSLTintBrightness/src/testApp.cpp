@@ -4,7 +4,12 @@
 void testApp::setup(){
 
 	//loads the shader
-	shader.load("emptyShader");
+	shader.load("tintAndBrightness");
+
+	//http://www.hh-h.com/assets/Parasol.jpg
+	image.loadImage("Riley-Parasol.jpg");
+
+	ofSetWindowShape(image.getWidth(), image.getHeight());
 }
 
 //--------------------------------------------------------------
@@ -17,27 +22,14 @@ void testApp::draw(){
 	
 	//begining a shader is like beginning an FBO. All drawing that takes place goes through the shader until end()
 	shader.begin();
-	
-	//you could set some uniforms once the shader has begun
-	//for example, an image: load this and then pass to the shader like so
-	ofImage someImage;
-	shader.setUniformTexture("image", someImage, 0);
 
-	//you can pass just normal variables as floats
-	float someValueForTheShader = 3.0;
-	shader.setUniform1f("singleValue", someValueForTheShader);
+	float brightness = 2.0 * ofGetMouseX() / ofGetWidth() ;
+	shader.setUniform1f("brightness", brightness);
+	//hue cycling
+	ofFloatColor tint = ofFloatColor::fromHsb( fmod(ofGetElapsedTimef() / 2.0, 1.0), 1.0, 1.0);
+	shader.setUniform4f("tint", tint.r, tint.b, tint.g, tint.a);
 	
-	//or 2 or 3 dimensional positions in space
-	ofVec2f somePositionOnTheScreen = ofVec2f(mouseX, mouseY);
-	shader.setUniform2f("singleValue", somePositionOnTheScreen.x,somePositionOnTheScreen.y);
-	
-	//or even colors, which are just treated like vectors
-	//shaders always want colors to be floats between 0 to 1.0
-	ofFloatColor color = ofColor(1.0, 0.0, 0.0);
-	shader.setUniform3f("someColor", color.r, color.b, color.g);
-	
-	//now draw something!
-	// ....
+	image.draw(0,0);
 	
 	//and put things back to normal
 	shader.end();
@@ -49,7 +41,7 @@ void testApp::keyPressed(int key){
 	//convenient shortcut to reload the shader in real time by hitting SHIFT+R
 	//this lets you edit the vertex and fragment files without having to recompiile
 	if(key == 'R'){
-		shader.load("emptyShader");
+		shader.load("tintAndBrightness");
 	}
 }
 
