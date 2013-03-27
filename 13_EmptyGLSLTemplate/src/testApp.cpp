@@ -15,22 +15,23 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	
-	//begining a shader is like begining an FBO. All drawing that takes place goes through the shader until end()
+	//begining a shader is like beginning an FBO. All drawing that takes place goes through the shader until end()
 	shader.begin();
 	
 	//you could set some uniforms once the shader has begun
-	ofImage someImage; //load this and then pass to the shader like so
+	//for example, an image: load this and then pass to the shader like so
+	ofImage someImage;
 	shader.setUniformTexture("image", someImage, 0);
 
-	//you can pass just normal variables
+	//you can pass just normal variables as floats
 	float someValueForTheShader = 3.0;
 	shader.setUniform1f("singleValue", someValueForTheShader);
 	
-	//or 2 or 3 dimenionsal positions in space
+	//or 2 or 3 dimensional positions in space
 	ofVec2f somePositionOnTheScreen = ofVec2f(mouseX, mouseY);
 	shader.setUniform2f("singleValue", somePositionOnTheScreen.x,somePositionOnTheScreen.y);
 	
-	//or even colors, which are just like vectors
+	//or even colors, which are just treated like vectors
 	//shaders always want colors to be floats between 0 to 1.0
 	ofFloatColor color = ofColor(1.0, 0.0, 0.0);
 	shader.setUniform3f("someColor", color.r, color.b, color.g);

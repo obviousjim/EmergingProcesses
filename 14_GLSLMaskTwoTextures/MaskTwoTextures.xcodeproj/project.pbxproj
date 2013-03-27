@@ -208,8 +208,8 @@
 		E751A57517035BDF008521A1 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				E751A57617035BED008521A1 /* maskTexture.frag */,
 				E751A57717035BED008521A1 /* maskTexture.vert */,
+				E751A57617035BED008521A1 /* maskTexture.frag */,
 			);
 			name = data;
 			sourceTree = "<group>";
